@@ -1,0 +1,58 @@
+/* Find the median of a given array of x length. The median is the number at the centre position in a sorted array.
+   The first input number (x) is the length of the array. The following x numbers are the contents.
+   1 Read in x and array contents
+   2 Sort array numerically using bubble sort
+   3 If odd number of elements, find centre point and print number stored there
+   4 If even number of elements, find two centre points, find the mean of both and print
+
+import java.util.*;
+public class Median
+{
+    public static void main (String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+        double array[] = new double[x];
+        double temp = 0;
+        
+        for(int i = 0; i < x; i++) //read in array
+        {
+            array[i] = sc.nextDouble();
+        }
+        
+        for(int i = 0; i < x; i++) //bubble sort
+        {
+            for(int j = 0; j < x; j++)
+            {
+                if(array[i] < array[j])
+                {
+                    temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+        
+        if(x % 2 == 1) //odd number of elements
+        {
+            //dividing an odd number by two cuts off the decimal (e.g. 5/2=2, 9/2=4).
+            //Since array positions start at 0, this position is the median
+            //e.g. 5 has positions 0 1 (2) 3 4 and 9 has positions 0 1 2 3 (4) 5 6 7 8
+            
+            double median = array[x/2];
+            System.out.print(median);
+        }
+        
+        else if(x % 2 == 0) //even number of elements
+        {
+            //an even number has two medians
+            //looking at 4 elements: 0 (1 2) 3 and 8 elements: 0 1 2 (3 4) 5 6 7
+            //dividing by two gives the second median (4/2 = 2 and 8/2 = 4)
+            //the average of this point and the point to the left (x/2 - 1) is the median
+            
+            double median = array[x/2] + array[(x/2)-1];
+            median = median/2;
+            System.out.print(median);
+        }
+    }
+}
